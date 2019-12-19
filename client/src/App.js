@@ -11,6 +11,8 @@ const App = () => {
 
   const [movies, setMovies] = useState({})
 
+  const [movie, setMovie] = useState({})
+
   const addToSavedList = movie => {
     setSavedList([...savedList, movie]);
   };
@@ -19,7 +21,7 @@ const App = () => {
     axios.get(`http://localhost:5000/api/movies/`)
     .then(res=> setMovies(res.data))
     .catch(err=> console.log(err))
-  }, []);
+  }, [movie]);
 
   return (
     <>
@@ -34,7 +36,7 @@ const App = () => {
       <Route
         path="/update-movie/:id"
         render={props => (
-          <UpdateMovie {...props} movies={movies} updateMovies={setMovies}/>
+          <UpdateMovie {...props} movies={movies} updateMovie={setMovie}/>
         )} />
     </>
   );

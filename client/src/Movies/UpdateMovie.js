@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
 const initialMovie = {
     title: '',
@@ -12,8 +13,10 @@ const UpdateMovie = props => {
 
   const id = props.match.params.id
 
+//   console.log('update loaded')
+
   useEffect(() => {
-      console.log(Object.keys(props.movies).length, 'movies array length')
+      console.log(Object.keys(props.movies).length, 'movies array length', 'update loaded')
       if (Object.keys(props.movies).length > 0){
         const movieToEdit = props.movies.find(
             e => `${e.id}` === id
@@ -45,7 +48,14 @@ const UpdateMovie = props => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(id)
-
+    axios
+        .put(`http://localhost:5000/api/movies/${id}`, newMovie)
+        .then(res => {
+            console.log(res.data,'api update')
+            props.updateMovie(res.data);
+            props.history.push(`/movies/${id}`)
+        })
+        .catch(err=> console.log(err))
   }
 
   return (
