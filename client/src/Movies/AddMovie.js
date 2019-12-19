@@ -5,25 +5,11 @@ const initialMovie = {
     title: '',
     director: '',
     metascore: '',
-    stars: []
+    stars: ['','','']
 }
 
 const UpdateMovie = props => {
   const [newMovie, setNewMovie] = useState(initialMovie)
-
-  const id = props.match.params.id
-
-//   console.log('update loaded')
-
-  useEffect(() => {
-      console.log(Object.keys(props.movies).length, 'movies array length', 'update loaded')
-      if (Object.keys(props.movies).length > 0){
-        const movieToEdit = props.movies.find(
-            e => `${e.id}` === id
-        );
-        setNewMovie(movieToEdit)
-      }
-  }, [props.movies, id])
 
   const changeHandler = e => {
       e.preventDefault();
@@ -47,28 +33,20 @@ const UpdateMovie = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(id)
     axios
-    .put(`http://localhost:5000/api/movies/${id}`, newMovie)
+    .post(`http://localhost:5000/api/movies/`, newMovie)
     .then(res => {
         console.log(res.data,'api update')
         props.updateMovie(res.data);
-        props.history.push(`/movies/${id}`)
+        props.history.push(`/`)
     })
     .catch(err=> console.log(err))
   }
 
-  const deleteMovie = e =>{
-      e.preventDefault()
-      axios
-      .delete(`http://localhost:5000/api/movies/${id}`)
-      .then(res => {
-          console.log(res.data,'api update')
-          props.updateMovie(res.data);
-          props.history.push(`/`)
-      })
-      .catch(err=> console.log(err))
-  }
+  const cancelAdd = e =>{
+    e.preventDefault()
+    props.history.push(`/`)
+}
 
   return (
     <>
@@ -82,16 +60,17 @@ const UpdateMovie = props => {
             Metascore:
             <input name='metascore' type='number' onChange={changeHandler} value={newMovie.metascore}/>
             {newMovie.stars.map((star, index) => (
-                <div key={star}>Actor:
-                <input key={index} name={index} type='text' onChange={starsChangeHandler} value={newMovie.stars[index]}/>
+                <div key={index}>
+                Actor:
+                <input name={index} type='text' onChange={starsChangeHandler} value={newMovie.stars[index]}/>
                 </div>
             ))}
         </form>
         <div className="update-button" onClick={handleSubmit}>
-            Update
+            Add
         </div>
-        <div className="delete-button" onClick={deleteMovie}>
-            Delete
+        <div className="delete-button" onClick={cancelAdd}>
+            Cancel
         </div>
     </div>
     </>

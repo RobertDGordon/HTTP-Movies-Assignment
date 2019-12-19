@@ -76,6 +76,13 @@ input{
   width: 75%;
   margin: 1rem auto;
 }
+
+.saved-list-buttons{
+  display: flex;
+  width: 20%;
+  justify-content: space-evenly;
+}
+
 .save-button {
   position: absolute;
   top: 25px;
@@ -129,6 +136,11 @@ input{
 }
 
 .home-button {
+  padding: 5px 10px;
+  background-color: lightskyblue;
+}
+
+.add-button {
   padding: 5px 10px;
   background-color: lightskyblue;
 }
