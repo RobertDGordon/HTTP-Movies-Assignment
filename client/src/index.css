@@ -16,6 +16,29 @@ body {
   margin: 1rem auto;
 }
 
+.update-card {
+  background-color: #fff;
+  width: 72.5%;
+  border: 0;
+  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.24);
+  padding: 1rem;
+  cursor: pointer;
+  position: relative;
+  margin: 1rem auto;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+input{
+  margin: 5px;
+  margin-bottom: 15px;
+  width: 300px;
+}
+
 .movie-director {
   padding: 4px 0;
   font-size: 0.8rem;
@@ -75,6 +98,32 @@ body {
   background-color: lightseagreen;
 }
 .edit-button:hover {
+  background-color: green;
+  color: white;
+}
+
+.update-button {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: lightseagreen;
+}
+.update-button:hover {
+  background-color: green;
+  color: white;
+}
+
+.delete-button {
+  position: absolute;
+  top: 25px;
+  right: 120px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: lightseagreen;
+}
+.delete-button:hover {
   background-color: green;
   color: white;
 }

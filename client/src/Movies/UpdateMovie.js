@@ -49,28 +49,51 @@ const UpdateMovie = props => {
     e.preventDefault();
     console.log(id)
     axios
-        .put(`http://localhost:5000/api/movies/${id}`, newMovie)
-        .then(res => {
-            console.log(res.data,'api update')
-            props.updateMovie(res.data);
-            props.history.push(`/movies/${id}`)
-        })
-        .catch(err=> console.log(err))
+    .put(`http://localhost:5000/api/movies/${id}`, newMovie)
+    .then(res => {
+        console.log(res.data,'api update')
+        props.updateMovie(res.data);
+        props.history.push(`/movies/${id}`)
+    })
+    .catch(err=> console.log(err))
+  }
+
+  const deleteMovie = e =>{
+      e.preventDefault()
+      axios
+      .delete(`http://localhost:5000/api/movies/${id}`)
+      .then(res => {
+          console.log(res.data,'api update')
+          props.updateMovie(res.data);
+          props.history.push(`/`)
+      })
+      .catch(err=> console.log(err))
   }
 
   return (
     <>
-    <div className='movie-card'>
+    <div className='update-card'>
         <h2>Edit Movie:</h2>
-        <form onSubmit={handleSubmit}>
+        <form>
+            Title:
             <input name='title' onChange={changeHandler} value={newMovie.title}/>
+            Director:
             <input name='director' onChange={changeHandler} value={newMovie.director}/>
+            Metascore:
             <input name='metascore' type='number' onChange={changeHandler} value={newMovie.metascore}/>
             {newMovie.stars.map((star, index) => (
+                <>
+                Actor:
                 <input key={index} name={index} type='text' onChange={starsChangeHandler} value={newMovie.stars[index]}/>
+                </>
             ))}
-            <button type='submit'>Update!</button>
         </form>
+        <div className="update-button" onClick={handleSubmit}>
+            Update
+        </div>
+        <div className="delete-button" onClick={deleteMovie}>
+            Delete
+        </div>
     </div>
     </>
   );
